@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>E-commerce Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    }
+
+    .calculator {
+      background: #fff;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      width: 90%;
+      max-width: 400px;
+      animation: popIn 0.6s ease;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2d3436;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      color: #2f3640;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 12px;
+      background-color: #00cec9;
+      border: none;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #00b894;
+    }
+
+    .output {
+      margin-top: 20px;
+      padding: 14px;
+      background: #dfe6e9;
+      border-radius: 10px;
+      animation: slideUp 0.4s ease;
+    }
+
+    .output p {
+      margin: 8px 0;
+      font-size: 15px;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="calculator">
+  <h2>Profitability Calculator</h2>
+  
+  <label>Product Cost</label>
+  <input type="number" id="productCost" placeholder="PKR">
+
+  <label>Shipping Cost</label>
+  <input type="number" id="shippingCost" placeholder="PKR">
+
+  <label>Selling Price</label>
+  <input type="number" id="sellingPrice" placeholder="PKR">
+
+  <label>Marketing Cost (Optional)</label>
+  <input type="number" id="marketingCost" placeholder="PKR">
+
+  <button onclick="calculateProfit()">Calculate</button>
+
+  <div class="output" id="result" style="display:none;"></div>
+</div>
+
+<script>
+  function calculateProfit() {
+    const product = parseFloat(document.getElementById('productCost').value) || 0;
+    const shipping = parseFloat(document.getElementById('shippingCost').value) || 0;
+    const selling = parseFloat(document.getElementById('sellingPrice').value) || 0;
+    const marketing = parseFloat(document.getElementById('marketingCost').value) || 0;
+
+    const totalCost = product + shipping + marketing;
+    const profit = selling - totalCost;
+    const margin = selling ? ((profit / selling) * 100).toFixed(2) : 0;
+
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('result').innerHTML = `
+      <p><strong>Total Cost:</strong> PKR ${totalCost}</p>
+      <p><strong>Profit:</strong> PKR ${profit}</p>
+      <p><strong>Profit Margin:</strong> ${margin}%</p>
+    `;
+  }
+</script>
+
+</body>
+</html>
